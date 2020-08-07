@@ -37,7 +37,10 @@ function passwordCheckerCb(email, password, cb){
 function passwordCheckerPrms(email, password){
   return new Promise((resolve, reject) => {
     passwordCheckerCb(email, password, (error, user) => {
-      /* IMPLEMENT ME! */
+      if (error){
+        reject (error)
+      }
+      resolve (user)
     });
   });
 }
@@ -57,6 +60,14 @@ function makePromiseFromFunctionWithCallback(fn, ...fnParams){
     - resolves with a value if the callback succeeds
     - rejects with an error if the callback fails
   */
+ return new Promise ((resolve, reject)=> {
+  fn (... fnParams, (error, res)=>{
+    if (error){
+      reject(error)
+    }
+    resolve(res)
+  })
+ })
 }
 
 /**
